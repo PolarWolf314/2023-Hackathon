@@ -5,14 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
+    
     <TextView
+        android:id="@+id/mainTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Hello"
+        />
+    
+    <Button
+        android:id="@+id/mainGetStartedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mainTitleText"
+        android:text="Take a Photo"
+        />
+
+    <Button
+        android:id="@+id/mainUploadPhotoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mainGetStartedButton"
+        android:text="Upload Image"
+        />
+    
+    <ImageView
+        android:id="@+id/mainCameraImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below = "@+id/mainGetStartedButton"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
