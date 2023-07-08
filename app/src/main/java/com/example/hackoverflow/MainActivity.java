@@ -66,7 +66,7 @@ import java.lang.ref.WeakReference;
 public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 22;
 
-    Button btnpicture;
+    Button btnpicture, upldpicture;
 
     ImageView imageView;
 
@@ -82,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btnpicture = findViewById(R.id.mainGetStartedButton);
+
+        upldpicture = findViewById(R.id.mainUploadPhotoButton);
 
         imageView = findViewById(R.id.mainCameraImage);
 

@@ -18,7 +18,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/mainTitleText"
-        android:text="Get Started"
+        android:text="Take a Photo"
+        />
+
+    <Button
+        android:id="@+id/mainUploadPhotoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mainGetStartedButton"
+        android:text="Upload Image"
         />
     
     <ImageView
