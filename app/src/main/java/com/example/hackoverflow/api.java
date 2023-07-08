@@ -14,8 +14,8 @@ public class api {
     private static final String API_SIMSEARCH_OPTION = "&include-related-images=true"; // optional: get most similar images
     private static final String API_LANG = "&lang=en"; // default: en
 
-    public static void identifyPlant(String imagePath) {
-        File imageFile = new File(imagePath);
+    public static void identifyPlant(File imageFile) {
+//        File imageFile = new File(imagePath);
 
         if (!imageFile.exists()) {
             System.out.println("The specified image file does not exist.");

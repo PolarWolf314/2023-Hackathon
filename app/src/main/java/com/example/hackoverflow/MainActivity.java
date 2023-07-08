@@ -96,49 +96,45 @@ public class MainActivity extends AppCompatActivity {
         imageView = findViewById(R.id.mainCameraImage);
 
 
-        btnpicture.setOnClickListener(new View.OnClickListener() {
+        btnpicture.setOnClickListener(v -> {
 
-            @Override
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-            public void onClick(View v) {
+            activityResultLauncher.launch(cameraIntent);
 
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-                activityResultLauncher.launch(cameraIntent);
-
-
-            }
 
         });
 
 
-        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-
-            @Override
-
-            public void onActivityResult(ActivityResult result) {
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
 
 
-                Bundle extras = result.getData().getExtras();
+            Bundle extras = result.getData().getExtras();
 
-                Uri imageUri;
+            Uri imageUri;
 
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
 
-                WeakReference<Bitmap> result_1 = new WeakReference<>(Bitmap.createScaledBitmap(imageBitmap,
+            WeakReference<Bitmap> result_1 = new WeakReference<>(Bitmap.createScaledBitmap(imageBitmap,
 
-                                imageBitmap.getWidth(), imageBitmap.getHeight(), false).
+                            imageBitmap.getWidth(), imageBitmap.getHeight(), false).
 
-                        copy(Bitmap.Config.RGB_565, true));
-
-
-                Bitmap bm = result_1.get();
+                    copy(Bitmap.Config.RGB_565, true));
 
 
-                imageUri = saveImage(bm, MainActivity.this);
-                imageView.setImageURI(imageUri);
+            Bitmap bm = result_1.get();
 
-            }
+
+            imageUri = saveImage(bm, MainActivity.this);
+            System.out.println("ImageUri from toString() is " + imageUri.toString());
+            System.out.println("ImageUri from getPath() is " + imageUri.getPath());
+
+
+            File imagefolder = new File(MainActivity.this.getCacheDir(), "images");
+            File file = new File(imagefolder, "captured_image.jpg");
+
+            api.identifyPlant(file);
+            imageView.setImageURI(imageUri);
 
         });
 
