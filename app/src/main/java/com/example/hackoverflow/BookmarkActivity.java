@@ -6,8 +6,33 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BookmarkActivity extends AppCompatActivity {
+
+    class ViewHolder {
+        ListView favouritesHolder;
+        LinearLayout emptyFavouritesHolder;
+
+        public ViewHolder() {
+
+            favouritesHolder = findViewById(R.id.favourites_holder);
+            emptyFavouritesHolder = findViewById(R.id.emptyFavouritesView);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +52,7 @@ public class BookmarkActivity extends AppCompatActivity {
         navbarSearchButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent searchIntent = new Intent(getBaseContext(), SearchActivity.class);
+                Intent searchIntent = new Intent(getBaseContext(), BookmarkActivity.class);
                 startActivity(searchIntent);
             }
         });
@@ -45,7 +70,7 @@ public class BookmarkActivity extends AppCompatActivity {
         navbarMenuButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent searchIntent = new Intent(getBaseContext(), MenuActivity.class);
+                Intent searchIntent = new Intent(getBaseContext(), BookmarkActivity.class);
                 startActivity(searchIntent);
             }
         });
