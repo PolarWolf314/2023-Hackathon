@@ -21,12 +21,23 @@
         android:id="@+id/mainUploadPhotoButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Upload Image"
-        app:layout_constraintTop_toBottomOf="@id/mainGetStartedButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
-        />
+        android:text="Upload Image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mainGetStartedButton" />
+
+    <Button
+        android:id="@+id/mainNextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mainUploadPhotoButton" />
 
     <ImageView
         android:id="@+id/mainCameraImage"
@@ -38,5 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:scaleType="centerCrop"
         />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

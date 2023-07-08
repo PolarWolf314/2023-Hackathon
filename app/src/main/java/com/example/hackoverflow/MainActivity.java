@@ -34,7 +34,7 @@ import java.lang.ref.WeakReference;
 public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 22;
 
-    Button btnpicture, upldpicture;
+    Button btnpicture, upldpicture, btnNext;
 
     ImageView imageView;
 
@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         btnpicture = findViewById(R.id.mainGetStartedButton);
         upldpicture = findViewById(R.id.mainUploadPhotoButton);
         imageView = findViewById(R.id.mainCameraImage);
+        btnNext = findViewById(R.id.mainNextButton);
 
         btnpicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +66,16 @@ public class MainActivity extends AppCompatActivity {
                 imageChooser();
             }
         });
+
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle "Next" button click
+                Intent intent = new Intent(MainActivity.this, ViewActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -126,4 +137,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 }
