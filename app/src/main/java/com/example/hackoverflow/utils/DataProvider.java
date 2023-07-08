@@ -6,73 +6,57 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DataProvider {
-    private Context context;
-    private String fileName;
 
-    public DataProvider(Context context, String fileName) {
+    private static final String JSON_FILE_NAME = "plants.json";
+
+    private Context context;
+
+    public DataProvider(Context context) {
         this.context = context;
-        this.fileName = fileName;
     }
 
-    public List<Plant> getPlant() {
-        List<Plant> plantList = new ArrayList<>();
-
+    public List<Plant> getPlants() {
+        List<Plant> plants = new ArrayList<>();
         try {
-            String jsonData = loadJSONFromAsset();
-            JSONObject jsonRootObject = new JSONObject(jsonData);
-            JSONArray continentsArray = jsonRootObject.getJSONArray("continents");
+            String json = loadJSONFromAsset();
+            JSONArray jsonArray = new JSONArray(json);
 
-            for (int i = 0; i < continentsArray.length(); i++) {
-                JSONObject plantObject = continentsArray.getJSONObject(i);
-                String plantName = continentObject.getString("name");
-                JSONArray countriesArray = continentObject.getJSONArray("countries");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String name = jsonObject.getString("name");
+                String image = jsonObject.getString("image");
+                String description = jsonObject.getString("description");
+                Boolean bookmark = jsonObject.getBoolean("bookmark");
 
-                for (int j = 0; j < countriesArray.length(); j++) {
-                    JSONObject plantObject = countriesArray.getJSONObject(j);
-                    String name = plantObject.getString("name");
-                    String image = plantObject.getString("image");
-                    String description = plantObject.getString("description");
-                    boolean bookmark = false;
-
-                    Plant plant = new Plant(name, image, description, bookmark);
-                    plantList.add(plant);
-                }
+                Plant plant = new Plant(name, image, description, bookmark);
+                plants.add(plant);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        return plantList;
+        return plants;
     }
 
     private String loadJSONFromAsset() {
-        String json = null;
-
+        String json;
         try {
-            InputStream inputStream = context.getAssets().open(fileName);
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            StringBuilder stringBuilder = new StringBuilder();
-            String line;
-
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuilder.append(line);
-            }
-
-            json = stringBuilder.toString();
-            bufferedReader.close();
+            InputStream inputStream = context.getAssets().open(JSON_FILE_NAME);
+            int size = inputStream.available();
+            byte[] buffer = new byte[size];
+            inputStream.read(buffer);
+            inputStream.close();
+            json = new String(buffer, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
-
         return json;
     }
-
 }
