@@ -72,6 +72,14 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityResultLauncher<Intent> activityResultLauncher;
 
+    public Uri getURI(MainActivity context, File file) {
+        return FileProvider.getUriForFile(
+                context.getApplicationContext(),
+                "com.example.hackoverflow.provider",
+                new File(context.getCacheDir(), "images/" + file.getName())
+        );
+    }
+
 
     @Override
 
@@ -126,8 +134,8 @@ public class MainActivity extends AppCompatActivity {
 
                 Bitmap bm = result_1.get();
 
-                imageUri = saveImage(bm, MainActivity.this);
 
+                imageUri = saveImage(bm, MainActivity.this);
                 imageView.setImageURI(imageUri);
 
             }
@@ -141,10 +149,11 @@ public class MainActivity extends AppCompatActivity {
     private Uri saveImage(Bitmap image, MainActivity context) {
 
         File imagefolder = new File(context.getCacheDir(), "images");
+        System.out.println(imagefolder);
 
         Uri uri = null;
 
-        try{
+        try {
 
             imagefolder.mkdirs();
 
@@ -158,12 +167,9 @@ public class MainActivity extends AppCompatActivity {
 
             stream.close();
 
-            uri = FileProvider.getUriForFile(context.getApplicationContext(), "com.allcodingtutorial.camerafull1"+".provider", file);
+            uri = getURI(context, file);
 
-        }
-
-
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
 
             e.printStackTrace();
 
@@ -173,10 +179,9 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        return uri ;
+        return uri;
 
     }
-
 
 
 }

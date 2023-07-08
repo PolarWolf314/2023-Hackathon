@@ -1,6 +1,7 @@
 package com.example.hackoverflow;
 
 import okhttp3.*;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -9,7 +10,7 @@ public class api {
 
     private static final String PROJECT = "all"; // try "weurope" or "canada"
     private static final String API_URL = "https://my-api.plantnet.org/v2/identify/" + PROJECT + "?api-key=";
-    private static final String API_PRIVATE_KEY = "your-private-api-key"; // secret
+    private static final String API_PRIVATE_KEY = "2b103ZERjEsjWMFUuTa2onvT"; // secret
     private static final String API_SIMSEARCH_OPTION = "&include-related-images=true"; // optional: get most similar images
     private static final String API_LANG = "&lang=en"; // default: en
 
