@@ -10,22 +10,19 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button getStartedButton = findViewById(R.id.mainGetStartedButton);
-
+    Button getStartedButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        getStartedButton = findViewById(R.id.mainGetStartedButton);
 
         getStartedButton.setOnClickListener(v -> {
             // Handle button click event
             Intent intent = new Intent(MainActivity.this, CameraActivity.class);
             startActivity(intent);
         });
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-
     }
-
-
 }
