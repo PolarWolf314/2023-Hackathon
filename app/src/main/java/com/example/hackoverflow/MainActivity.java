@@ -65,12 +65,21 @@ import java.lang.ref.WeakReference;
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 22;
+    public static int ITERATOR = 1;
 
     Button btnpicture, upldpicture;
 
     ImageView imageView;
 
     ActivityResultLauncher<Intent> activityResultLauncher;
+
+    public Uri getURI(MainActivity context, File file) {
+        return FileProvider.getUriForFile(
+                context.getApplicationContext(),
+                "com.example.hackoverflow.provider",
+                new File(context.getCacheDir(), "images/" + file.getName())
+        );
+    }
 
 
     @Override
@@ -88,50 +97,47 @@ public class MainActivity extends AppCompatActivity {
         imageView = findViewById(R.id.mainCameraImage);
 
 
-        btnpicture.setOnClickListener(new View.OnClickListener() {
+        btnpicture.setOnClickListener(v -> {
 
-            @Override
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-            public void onClick(View v) {
+            activityResultLauncher.launch(cameraIntent);
 
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-                activityResultLauncher.launch(cameraIntent);
-
-
-            }
 
         });
 
 
-        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-
-            @Override
-
-            public void onActivityResult(ActivityResult result) {
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
 
 
-                Bundle extras = result.getData().getExtras();
+            Bundle extras = result.getData().getExtras();
 
-                Uri imageUri;
+            Uri imageUri;
 
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
 
-                WeakReference<Bitmap> result_1 = new WeakReference<>(Bitmap.createScaledBitmap(imageBitmap,
+            WeakReference<Bitmap> result_1 = new WeakReference<>(Bitmap.createScaledBitmap(imageBitmap,
 
-                                imageBitmap.getWidth(), imageBitmap.getHeight(), false).
+                            imageBitmap.getWidth(), imageBitmap.getHeight(), false).
 
-                        copy(Bitmap.Config.RGB_565, true));
+                    copy(Bitmap.Config.RGB_565, true));
 
 
-                Bitmap bm = result_1.get();
+            Bitmap bm = result_1.get();
 
-                imageUri = saveImage(bm, MainActivity.this);
 
-                imageView.setImageURI(imageUri);
+            imageUri = saveImage(bm, MainActivity.this);
+            System.out.println("ImageUri from toString() is " + imageUri.toString());
+            System.out.println("ImageUri from getPath() is " + imageUri.getPath());
 
-            }
 
+            File imagefolder = new File(MainActivity.this.getCacheDir(), "images");
+            File file = new File(imagefolder, ITERATOR + "captured_image.jpg");
+
+            api.identifyPlant(file, this);
+            imageView.setImageURI(imageUri);
+
+            ITERATOR++;
         });
 
 
@@ -141,14 +147,17 @@ public class MainActivity extends AppCompatActivity {
     private Uri saveImage(Bitmap image, MainActivity context) {
 
         File imagefolder = new File(context.getCacheDir(), "images");
+        System.out.println(imagefolder);
 
         Uri uri = null;
 
-        try{
+        try {
 
-            imagefolder.mkdirs();
+            if (!imagefolder.exists() && !imagefolder.isDirectory()) {
+                imagefolder.mkdirs();
+            }
 
-            File file = new File(imagefolder, "captured_image.jpg");
+            File file = new File(imagefolder, ITERATOR + "captured_image.jpg");
 
             FileOutputStream stream = new FileOutputStream(file);
 
@@ -158,12 +167,9 @@ public class MainActivity extends AppCompatActivity {
 
             stream.close();
 
-            uri = FileProvider.getUriForFile(context.getApplicationContext(), "com.allcodingtutorial.camerafull1"+".provider", file);
+            uri = getURI(context, file);
 
-        }
-
-
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
 
             e.printStackTrace();
 
@@ -173,10 +179,9 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        return uri ;
+        return uri;
 
     }
-
 
 
 }
