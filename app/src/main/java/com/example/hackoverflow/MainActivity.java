@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
             File imagefolder = new File(MainActivity.this.getCacheDir(), "images");
             File file = new File(imagefolder, "captured_image.jpg");
 
-            api.identifyPlant(file);
+            api.identifyPlant(file, this);
             imageView.setImageURI(imageUri);
 
         });

@@ -1,8 +1,11 @@
 package com.example.hackoverflow;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
+import android.content.Context;
 import android.content.res.AssetManager;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,7 +24,8 @@ public class api {
     private static final String PROJECT = "all";
     private static final String URL = "https://my-api.plantnet.org/v2/identify/" + PROJECT + "?api-key=2b103ZERjEsjWMFUuTa2onvT";
 
-    public static void identifyPlant(final File imageFile) {
+
+    public static void identifyPlant(final File imageFile, Context context) {
         if (!imageFile.exists()) {
             System.out.println("The specified image file does not exist.");
             return;
@@ -57,15 +61,17 @@ public class api {
 
             @Override
             protected void onPostExecute(String result) {
-                //System.out.println(result);
-                parseData(result);
+                JSONArray resultArray = parseData(result, imageFile);
+                writeToJson(context, resultArray);
+
                 // Handle the response or update the UI here
             }
         }.execute();
     }
 
-    public static void parseData(String jsonData){
+    public static JSONArray parseData(String jsonData, File imageFile){
         // Assuming you have the JSON data in a String variable called jsonData
+        JSONArray resultArray = new JSONArray();
         try {
             JSONObject jsonObject = new JSONObject(jsonData);
             JSONArray resultsArray = jsonObject.getJSONArray("results");
@@ -92,47 +98,78 @@ public class api {
 
                 JSONObject species = highestScoreData.getJSONObject("species");
                 JSONArray commonNamesArray = species.getJSONArray("commonNames");
+                String commonName = (String) commonNamesArray.get(0);
+
+
+                String imagePath = imageFile.getAbsolutePath();
+
+                String bookmark = "false";
 
                 // Use the extracted data as needed
                 System.out.println("Scientific Name: " + scientificName);
                 System.out.println("Family Name: " + familyName);
-                System.out.println("Common Name: " + commonNamesArray.get(0));
+                System.out.println("Common Name: " + commonName);
+                System.out.println("Image Path: " + imagePath);
+
+
+                resultArray.put(scientificName);
+                resultArray.put(familyName);
+                resultArray.put(commonName);
+                resultArray.put(imagePath);
+                resultArray.put(bookmark);
+
+                return resultArray;
+
 
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return resultArray;
     }
 
-    /**
-    public static void writeToJson(){
+
+    public static void writeToJson(Context context, JSONArray newArray){
+
         try {
-            AssetManager manager = getAssets(); // Replace 'getAssets()' with your context's asset manager
-            InputStream file = manager.open("your_file_name.json");
+            // Retrieve the existing JSON array from the file, if any
+            JSONArray existingArray;
+            File file = new File(context.getFilesDir(), "data.json");
 
-            int size = file.available();
-            byte[] buffer = new byte[size];
-            file.read(buffer);
-            file.close();
+            System.out.println(file.getAbsolutePath());
 
-            String jsonString = new String(buffer, "UTF-8");
-            JSONArray jsonArray = new JSONArray(jsonString);
+            if (file.exists()) {
+                FileInputStream fileInputStream = new FileInputStream(file);
+                int size = fileInputStream.available();
+                byte[] buffer = new byte[size];
+                fileInputStream.read(buffer);
+                fileInputStream.close();
 
-            // Create a new JSON object or array with the data you want to append
-            // For example, let's assume you have a new JSON object to append called 'newData'
-            jsonArray.put(newData);
+                String fileContent = new String(buffer, "UTF-8");
+                if (fileContent.isEmpty()) {
+                    existingArray = new JSONArray();
+                } else {
+                    existingArray = new JSONArray(fileContent);
+                }
+            } else {
+                existingArray = new JSONArray();
+            }
 
-            // Write the updated JSON array back to the file
-            OutputStreamWriter outputWriter = new OutputStreamWriter(openFileOutput("your_file_name.json", Context.MODE_PRIVATE));
-            outputWriter.write(jsonArray.toString());
-            outputWriter.close();
+            // Merge the existing and new JSON arrays
+            for (int i = 0; i < newArray.length(); i++) {
+                existingArray.put(newArray.get(i));
+            }
+
+            // Write the merged JSON array back to the file
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            fileOutputStream.write(existingArray.toString().getBytes());
+            fileOutputStream.close();
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
     }
-     **/
 
 }
