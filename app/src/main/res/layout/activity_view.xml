@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D0CEBA"
+    android:orientation="vertical"
+    android:paddingTop="50dp"
+    app:layoutDescription="@xml/activity_view_scene"
+    tools:context=".ViewActivity">
+
+    <ImageView
+        android:id="@+id/viewPlantImageView"
+        android:layout_width="402dp"
+        android:layout_height="230dp"
+        app:srcCompat="@drawable/manuka"
+        tools:layout_editor_absoluteX="4dp"
+        tools:layout_editor_absoluteY="3dp" />
+
+    <TextView
+        android:id="@+id/viewPlantNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/baloo_bhai"
+        android:text="Manuka"
+        android:textColor="#444444"
+        android:textSize="34sp"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="256dp" />
+
+    <TextView
+        android:id="@+id/viewPlantDescriptionTextView"
+        android:layout_width="319dp"
+        android:layout_height="171dp"
+        android:fontFamily="@font/amethysta"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "
+        android:textColor="#444444"
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="338dp" />
+
+    <LinearLayout
+        android:id="@+id/navbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:paddingStart="0dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="0dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/navbarHomeButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:src="@drawable/home" />
+
+        <ImageView
+            android:id="@+id/navbarSearchButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:src="@drawable/search" />
+
+        <ImageView
+            android:id="@+id/navbarBookmarkButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:src="@drawable/bookmark" />
+
+        <ImageView
+            android:id="@+id/navbarMenuButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:src="@drawable/menu" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
