@@ -84,11 +84,20 @@ public class api {
 
             if (highestScoreData != null) {
                 // Extract the required information from the highest score data
-                String scientificName = highestScoreData.getJSONObject("species").getString("scientificName");
+                String scientificName = highestScoreData.getJSONObject("species").getJSONObject("genus").getString("scientificName");
+
+                String familyName = highestScoreData.getJSONObject("species").getJSONObject("family").getString("scientificName");
                 // You can add more fields as per your JSON structure
+
+
+                JSONObject species = highestScoreData.getJSONObject("species");
+                JSONArray commonNamesArray = species.getJSONArray("commonNames");
 
                 // Use the extracted data as needed
                 System.out.println("Scientific Name: " + scientificName);
+                System.out.println("Family Name: " + familyName);
+                System.out.println("Common Name: " + commonNamesArray.get(0));
+
             }
 
         } catch (JSONException e) {
