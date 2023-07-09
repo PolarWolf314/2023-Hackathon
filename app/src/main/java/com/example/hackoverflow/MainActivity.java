@@ -65,6 +65,7 @@ import java.lang.ref.WeakReference;
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 22;
+    public static int ITERATOR = 1;
 
     Button btnpicture, upldpicture;
 
@@ -131,11 +132,12 @@ public class MainActivity extends AppCompatActivity {
 
 
             File imagefolder = new File(MainActivity.this.getCacheDir(), "images");
-            File file = new File(imagefolder, "captured_image.jpg");
+            File file = new File(imagefolder, ITERATOR + "captured_image.jpg");
 
             api.identifyPlant(file);
             imageView.setImageURI(imageUri);
 
+            ITERATOR++;
         });
 
 
@@ -151,9 +153,11 @@ public class MainActivity extends AppCompatActivity {
 
         try {
 
-            imagefolder.mkdirs();
+            if (!imagefolder.exists() && !imagefolder.isDirectory()) {
+                imagefolder.mkdirs();
+            }
 
-            File file = new File(imagefolder, "captured_image.jpg");
+            File file = new File(imagefolder, ITERATOR + "captured_image.jpg");
 
             FileOutputStream stream = new FileOutputStream(file);
 

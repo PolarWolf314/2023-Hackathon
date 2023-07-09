@@ -96,7 +96,12 @@ public class api {
                 // Use the extracted data as needed
                 System.out.println("Scientific Name: " + scientificName);
                 System.out.println("Family Name: " + familyName);
-                System.out.println("Common Name: " + commonNamesArray.get(0));
+                if(!commonNamesArray.isNull(0)) {
+
+                    System.out.println("Common Name: " + commonNamesArray.get(0));
+                } else {
+                    System.out.println("There is no common name available.");
+                }
 
             }
 
