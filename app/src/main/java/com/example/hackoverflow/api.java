@@ -98,7 +98,12 @@ public class api {
 
                 JSONObject species = highestScoreData.getJSONObject("species");
                 JSONArray commonNamesArray = species.getJSONArray("commonNames");
-                String commonName = (String) commonNamesArray.get(0);
+                String commonName;
+                if(!commonNamesArray.isNull(0)) {
+                    commonName = (String) commonNamesArray.get(0);
+                } else {
+                    commonName = "No common name found";
+                }
 
 
                 String imagePath = imageFile.getAbsolutePath();
