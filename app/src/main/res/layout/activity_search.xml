@@ -4,42 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-    
-    <TextView
-        android:id="@+id/mainTitleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello"
-        />
-    
-    <Button
-        android:id="@+id/mainGetStartedButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/mainTitleText"
-        android:text="Take a Photo"
-        />
+    tools:context=".SearchActivity">
 
-    <Button
-        android:id="@+id/mainUploadPhotoButton"
+    <android.widget.SearchView
+        android:id="@+id/searchActivityView"
+        android:layout_width="280dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:background="#39405E"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search Countries"
+        android:searchIcon="@drawable/search"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center">
+
+    </android.widget.SearchView>
+
+    <TextView
+        android:id="@+id/noCountriesTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/mainGetStartedButton"
-        android:text="Upload Image"
-        />
-    
-    <ImageView
-        android:id="@+id/mainCameraImage"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/jostregular1"
+        android:text="No countries \n found in search"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:layout_weight="1"
+        android:visibility="gone" />
+
+    <GridView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below = "@+id/mainGetStartedButton"
-        />
+        android:layout_height="100dp"
+        android:layout_margin="4dp"
+        android:id="@+id/countries"
+        android:numColumns="2"
+        android:layout_weight="1"
+        >
+    </GridView>
+
     <LinearLayout
         android:id="@+id/navbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#eeeeee"
+        android:background="#ffffff"
         android:orientation="horizontal"
         android:paddingStart="0dp"
         android:paddingLeft="10dp"
@@ -79,5 +87,6 @@
             android:layout_weight="1"
             android:src="@drawable/menu" />
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,40 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-    
-    <TextView
-        android:id="@+id/mainTitleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello"
-        />
-    
-    <Button
-        android:id="@+id/mainGetStartedButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/mainTitleText"
-        android:text="Take a Photo"
-        />
+    android:orientation="vertical"
+    tools:context=".BookmarkActivity">
 
-    <Button
-        android:id="@+id/mainUploadPhotoButton"
+    <TextView
+        android:id="@+id/favourites_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/mainGetStartedButton"
-        android:text="Upload Image"
-        />
-    
-    <ImageView
-        android:id="@+id/mainCameraImage"
+        android:padding="16dp"
+        android:text="Favourites"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:background="@color/green"
+        android:textSize="48sp" />
+
+    <ListView
+        android:id="@+id/favourites_holder"
+        android:paddingTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:visibility="visible"/>
+
+    <LinearLayout
+        android:id="@+id/emptyFavouritesView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below = "@+id/mainGetStartedButton"
-        />
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="36dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:text="Your favourites is looking a little sad. Add some Gundam to your favourites"/>
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/navbar"
         android:layout_width="match_parent"
@@ -50,6 +58,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
+
 
         <ImageView
             android:id="@+id/navbarHomeButton"
@@ -80,4 +90,5 @@
             android:src="@drawable/menu" />
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

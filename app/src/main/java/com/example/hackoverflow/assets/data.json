@@ -1,0 +1,29 @@
+{
+  "plants": [
+    {
+      "name": "Rose",
+      "image": "https://example.com/rose.jpg",
+      "description": "The rose is a classic flower known for its beauty and fragrance."
+    },
+    {
+      "name": "Sunflower",
+      "image": "https://example.com/sunflower.jpg",
+      "description": "The sunflower is a tall, bright flower that follows the sun."
+    },
+    {
+      "name": "Orchid",
+      "image": "https://example.com/orchid.jpg",
+      "description": "Orchids are elegant flowers known for their vibrant colors and delicate petals."
+    },
+    {
+      "name": "Tulip",
+      "image": "https://example.com/tulip.jpg",
+      "description": "Tulips are popular spring flowers with a wide range of colors and shapes."
+    },
+    {
+      "name": "Lavender",
+      "image": "https://example.com/lavender.jpg",
+      "description": "Lavender is a fragrant herb often used in aromatherapy and cooking."
+    }
+  ]
+}
