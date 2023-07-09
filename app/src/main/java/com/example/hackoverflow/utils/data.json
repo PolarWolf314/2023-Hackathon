@@ -1,0 +1,39 @@
+{
+  "plants": [
+    {
+      "name": "Rose",
+      "scientificName": "scientific name",
+      "familyName": "family name",
+      "image": "https://example.com/rose.jpg",
+      "bookmark": false
+    },
+    {
+      "name": "Sunflower",
+      "scientificName": "scientific name",
+      "familyName": "family name",
+      "image": "https://example.com/sunflower.jpg",
+      "bookmark": false
+    },
+    {
+      "name": "Orchid",
+      "scientificName": "scientific name",
+      "familyName": "family name",
+      "image": "https://example.com/orchid.jpg",
+      "bookmark": false
+    },
+    {
+      "name": "Tulip",
+      "scientificName": "scientific name",
+      "familyName": "family name",
+      "image": "https://example.com/tulip.jpg",
+      "bookmark": false
+    },
+    {
+      "name": "Lavender",
+      "scientificName": "scientific name",
+      "familyName": "family name",
+      "image": "https://example.com/lavender.jpg",
+      "bookmark": false
+    }
+  ]
+}

@@ -21,6 +21,7 @@ import android.app.Activity;
 
 import android.content.ContentResolver;
 
+import android.content.Context;
 import android.content.Intent;
 
 import android.graphics.Bitmap;
@@ -132,6 +133,45 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
+        });
+
+        ImageView navbarHomeButton = (ImageView) findViewById(R.id.navbarHomeButton);
+        navbarHomeButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent homeIntent = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(homeIntent);
+            }
+        });
+
+        ImageView navbarSearchButton = (ImageView) findViewById(R.id.navbarSearchButton);
+        navbarSearchButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Context context = MainActivity.this;
+                Intent searchIntent = new Intent(getBaseContext(), SearchActivity.class);
+                //searchIntent.putExtra("context", String.valueOf(context));
+                startActivity(searchIntent);
+            }
+        });
+
+        ImageView navbarBookmarkButton = (ImageView) findViewById(R.id.navbarBookmarkButton);
+        navbarBookmarkButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent homeIntent = new Intent(getBaseContext(), BookmarkActivity.class);
+                startActivity(homeIntent);
+            }
+        });
+
+        ImageView navbarMenuButton = (ImageView) findViewById(R.id.navbarMenuButton);
+        navbarMenuButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent searchIntent = new Intent(MainActivity.this, SearchActivity.class);
+
+                startActivity(searchIntent);
+            }
         });
 
 

@@ -4,18 +4,21 @@ public class Plant {
 
     private String name;
     private String image;
-    private String description;
+    private String scientificName;
+    private String familyName;
     private boolean bookmark;
 
-    public Plant(String name, String image, String description, boolean bookmark) {
+    public Plant(String name, String scientificName, String familyName, String image, boolean bookmark) {
         this.name = name;
+        this.scientificName = name;
+        this.familyName = familyName;
         this.image = image;
-        this.description = description;
         this.bookmark = bookmark;
     }
 
     public String getName() { return name; }
-    public String getDescription() { return description; }
+    public String getScientificName() { return scientificName; }
+    public String getFamilyName() { return familyName; }
     public String getImage() { return image; }
     public boolean getBookmark() { return bookmark; }
 

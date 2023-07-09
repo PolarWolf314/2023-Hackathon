@@ -10,6 +10,12 @@ import android.widget.ImageView;
 
 public class ViewActivity extends AppCompatActivity {
 
+    public static int byPlant = 0;
+    public static String byPlantString;
+    public static String plantName;
+
+    boolean isFavourite = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +52,7 @@ public class ViewActivity extends AppCompatActivity {
         navbarMenuButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent searchIntent = new Intent(getBaseContext(), MenuActivity.class);
+                Intent searchIntent = new Intent(getBaseContext(), SearchActivity.class);
                 startActivity(searchIntent);
             }
         });

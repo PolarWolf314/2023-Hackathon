@@ -1,47 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingTop="20dp"
+    android:paddingRight="15dp"
+    android:paddingBottom="20dp"
     tools:context=".SearchActivity">
 
     <android.widget.SearchView
         android:id="@+id/searchActivityView"
         android:layout_width="280dp"
         android:layout_height="40dp"
+        android:layout_gravity="center"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:background="#39405E"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search Countries"
-        android:searchIcon="@drawable/search"
         android:layout_marginBottom="20dp"
-        android:layout_gravity="center">
+        android:background="#eeeeee"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search Plants"
+        android:searchIcon="@drawable/search">
 
     </android.widget.SearchView>
 
+
     <TextView
-        android:id="@+id/noCountriesTextView"
+        android:id="@+id/noPlantsTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/baloo_bhai"
         android:gravity="center_horizontal"
-        android:fontFamily="@font/jostregular1"
-        android:text="No countries \n found in search"
+        android:text="No plants \n found in search"
         android:textColor="#FFFFFF"
         android:textSize="25sp"
-        android:layout_weight="1"
         android:visibility="gone" />
 
     <GridView
+        android:id="@+id/plants"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_margin="4dp"
-        android:id="@+id/countries"
-        android:numColumns="2"
         android:layout_weight="1"
-        >
-    </GridView>
+        android:numColumns="2"></GridView>
 
     <LinearLayout
         android:id="@+id/navbar"
@@ -89,4 +94,4 @@
     </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

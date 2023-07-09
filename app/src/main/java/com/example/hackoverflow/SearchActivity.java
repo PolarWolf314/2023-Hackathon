@@ -2,6 +2,7 @@ package com.example.hackoverflow;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,10 +11,16 @@ import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.example.hackoverflow.utils.Plant;
 import com.example.hackoverflow.utils.PlantAdapter;
 import com.example.hackoverflow.utils.DataProvider;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
@@ -22,8 +29,8 @@ public class SearchActivity extends AppCompatActivity {
     public static int bySearch = 0;
     public static String searchString;
 
-    private List<String> PlantList;
-    private List<String> filteredPlantList;
+    private JSONArray plantJsonList;
+    private List<Plant> filteredPlantList;
     private PlantAdapter plantAdapter;
     private GridView plantGrid;
 
@@ -32,26 +39,37 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_activity);
+        setContentView(R.layout.activity_search);
 
-        DataProvider dataProvider = new DataProvider(this, "data.json");
-        countryList = dataProvider.getCountry();
-        filteredCountryList = new ArrayList<>(countryList);
+        DataProvider dataProvider = new DataProvider();
 
-        noCountriesTextView = findViewById(R.id.noCountriesTextView);
-        countriesGrid = findViewById(R.id.countries);
+        //Context context = getIntent().getParcelableExtra("context");
+        plantJsonList = dataProvider.readJson(this);
 
-        countriesAdapter = new CountryAdaptor(this, R.layout.country_item, filteredCountryList);
+        for (int i = 0; i < plantJsonList.length(); i++) {
+            try {
+                JSONObject item = plantJsonList.getJSONObject(i);
+                System.out.println(item);
 
-        if (bySearch > 0) {
-            filterCountries(searchString);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
         }
 
+        noCountriesTextView = findViewById(R.id.noPlantsTextView);
+        plantGrid = findViewById(R.id.plants);
 
-        GridView gridView = findViewById(R.id.countries);
-        gridView.setAdapter(countriesAdapter);
+        plantAdapter = new PlantAdapter(this, R.layout.plant_item, filteredPlantList);
 
-        ImageView homeButton = findViewById(R.id.homeButton);
+        if (bySearch > 0) {
+//            filterPlants(searchString);
+        }
+
+        GridView gridView = findViewById(R.id.plants);
+        gridView.setAdapter(plantAdapter);
+
+        ImageView homeButton = findViewById(R.id.navbarHomeButton);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,11 +79,11 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        ImageView favouriteButton = findViewById(R.id.favouriteButton);
+        ImageView favouriteButton = findViewById(R.id.navbarBookmarkButton);
         favouriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent favouriteIntent = new Intent(getBaseContext(), FavouriteActivity.class);
+                Intent favouriteIntent = new Intent(getBaseContext(), BookmarkActivity.class);
                 startActivity(favouriteIntent);
             }
         });
@@ -79,33 +97,33 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterCountries(newText.toLowerCase(Locale.getDefault()));
+//                filterPlants(newText.toLowerCase(Locale.getDefault()));
                 return true;
             }
         });
     }
-
-    private void filterCountries(String filterText) {
-        filteredCountryList.clear();
-
-        if (filterText.isEmpty()) {
-            filteredCountryList.addAll(countryList);
-        } else {
-            for (Country country : countryList) {
-                if (country.getName().toLowerCase(Locale.getDefault()).contains(filterText)) {
-                    filteredCountryList.add(country);
-                }
-            }
-        }
-
-        if (filteredCountryList.isEmpty()) {
-            noCountriesTextView.setVisibility(View.VISIBLE);
-            countriesGrid.setVisibility(View.GONE);
-        } else {
-            noCountriesTextView.setVisibility(View.GONE);
-            countriesGrid.setVisibility(View.VISIBLE);
-        }
-
-        countriesAdapter.notifyDataSetChanged();
-    }
+//
+//    private void filterPlants(String filterText) {
+//        filteredPlantList.clear();
+//
+//        if (filterText.isEmpty()) {
+//            filteredPlantList.addAll(plantArrayList);
+//        } else {
+//            for (Plant plant : plantList) {
+//                if (plant.getName().toLowerCase(Locale.getDefault()).contains(filterText)) {
+//                    filteredPlantList.add(plant);
+//                }
+//            }
+//        }
+//
+//        if (filteredPlantList.isEmpty()) {
+//            noCountriesTextView.setVisibility(View.VISIBLE);
+//            plantGrid.setVisibility(View.GONE);
+//        } else {
+//            noCountriesTextView.setVisibility(View.GONE);
+//            plantGrid.setVisibility(View.VISIBLE);
+//        }
+//
+//        plantAdapter.notifyDataSetChanged();
+//    }
 }

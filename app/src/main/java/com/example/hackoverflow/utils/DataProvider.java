@@ -4,59 +4,76 @@ import android.content.Context;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DataProvider {
 
-    private static final String JSON_FILE_NAME = "plants.json";
+    public static void writeToJson(Context context, JSONArray newArray){
 
-    private Context context;
-
-    public DataProvider(Context context) {
-        this.context = context;
-    }
-
-    public List<Plant> getPlants() {
-        List<Plant> plants = new ArrayList<>();
         try {
-            String json = loadJSONFromAsset();
-            JSONArray jsonArray = new JSONArray(json);
+            // Retrieve the existing JSON array from the file, if any
+            JSONArray existingArray;
+            File file = new File(context.getFilesDir(), "data.json");
 
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String name = jsonObject.getString("name");
-                String image = jsonObject.getString("image");
-                String description = jsonObject.getString("description");
-                Boolean bookmark = jsonObject.getBoolean("bookmark");
+            System.out.println(file.getAbsolutePath());
 
-                Plant plant = new Plant(name, image, description, bookmark);
-                plants.add(plant);
+            if (file.exists()) {
+                FileInputStream fileInputStream = new FileInputStream(file);
+                int size = fileInputStream.available();
+                byte[] buffer = new byte[size];
+                fileInputStream.read(buffer);
+                fileInputStream.close();
+
+                String fileContent = new String(buffer, "UTF-8");
+                if (fileContent.isEmpty()) {
+                    existingArray = new JSONArray();
+                } else {
+                    existingArray = new JSONArray(fileContent);
+                }
+            } else {
+                existingArray = new JSONArray();
             }
-        } catch (JSONException e) {
+
+            // Merge the existing and new JSON arrays
+            for (int i = 0; i < newArray.length(); i++) {
+                existingArray.put(newArray.get(i));
+            }
+
+            // Write the merged JSON array back to the file
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            fileOutputStream.write(existingArray.toString().getBytes());
+            fileOutputStream.close();
+
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
-        return plants;
+
     }
 
-    private String loadJSONFromAsset() {
-        String json;
+    public static JSONArray readJson(Context context){
+        JSONArray resultArray = new JSONArray();
         try {
-            InputStream inputStream = context.getAssets().open(JSON_FILE_NAME);
-            int size = inputStream.available();
+            FileInputStream fileInputStream = context.openFileInput("your_file_name.json");
+            int size = fileInputStream.available();
             byte[] buffer = new byte[size];
-            inputStream.read(buffer);
-            inputStream.close();
-            json = new String(buffer, StandardCharsets.UTF_8);
-        } catch (IOException e) {
+            fileInputStream.read(buffer);
+            fileInputStream.close();
+
+            String fileContent = new String(buffer, "UTF-8");
+            resultArray = new JSONArray(fileContent);
+            System.out.println(resultArray);
+            return resultArray;
+            // Use the parsed JSON array as needed
+            // ...
+
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
-            return null;
         }
-        return json;
+        return resultArray;
+
     }
 }
