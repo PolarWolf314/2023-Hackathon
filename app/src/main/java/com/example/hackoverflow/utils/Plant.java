@@ -19,6 +19,10 @@ public class Plant {
     public String getImage() { return image; }
     public boolean getBookmark() { return bookmark; }
 
+    public void setBookmark(boolean favourite) {
+        bookmark = favourite;
+    }
+
     public boolean setBookmark(int intent) {
         if (intent > 0){
             bookmark = true;

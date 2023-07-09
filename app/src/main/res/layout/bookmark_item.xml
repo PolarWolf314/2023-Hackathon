@@ -20,7 +20,7 @@
 
 
             <ImageView
-                android:id="@+id/favourites_gundam_image"
+                android:id="@+id/favourites_plant_image"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:background="@drawable/card_radius"
@@ -39,7 +39,7 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/favourites_gundam_description"
+                        android:id="@+id/favourites_plant_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
